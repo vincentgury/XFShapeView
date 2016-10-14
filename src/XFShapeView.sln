@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFShapeView", "XFShapeView\XFShapeView.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFShapeView.iOS", "XFShapeView.iOS\XFShapeView.iOS.csproj", "{D7DA3CE1-5580-4BB8-95AF-59FEB552AC67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFShapeView.Droid", "XFShapeView.Droid\XFShapeView.Droid.csproj", "{220064E6-5807-446D-AFB5-64147B62E4D3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7DA3CE1-5580-4BB8-95AF-59FEB552AC67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7DA3CE1-5580-4BB8-95AF-59FEB552AC67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7DA3CE1-5580-4BB8-95AF-59FEB552AC67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7DA3CE1-5580-4BB8-95AF-59FEB552AC67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{220064E6-5807-446D-AFB5-64147B62E4D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{220064E6-5807-446D-AFB5-64147B62E4D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{220064E6-5807-446D-AFB5-64147B62E4D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{220064E6-5807-446D-AFB5-64147B62E4D3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
