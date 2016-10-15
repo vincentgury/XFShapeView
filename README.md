@@ -3,7 +3,7 @@
 ## Shape View for Xamarin.Forms (Android & iOS)
 
 Create shapes content views from shared code for your mobile apps!
-
+<br/><br/><br/>
 ### Setup & Usage
 * Available on NuGet: https://www.nuget.org/packages/VG.XFShapeView/ [![NuGet](https://img.shields.io/nuget/v/VG.XFShapeView.svg?label=NuGet)](https://www.nuget.org/packages/VG.XFShapeView/)
 * Install into your PCL project and Client projects.
