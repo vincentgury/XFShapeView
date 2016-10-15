@@ -107,6 +107,10 @@
       <HintPath>..\..\packages\Xamarin.Forms.2.3.2.127\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="XFShapeView.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VG.XFShapeView.1.0.1\lib\MonoAndroid10\XFShapeView.Droid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -132,10 +136,6 @@
     <AndroidResource Include="Resources\values\styles.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\XFShapeView.Droid\XFShapeView.Droid.csproj">
-      <Project>{220064e6-5807-446d-afb5-64147b62e4d3}</Project>
-      <Name>XFShapeView.Droid</Name>
-    </ProjectReference>
     <ProjectReference Include="..\XFShapeViewSample\XFShapeViewSample.csproj">
       <Project>{0ad2a14f-84d7-4cbf-88ae-86f24e7e0d4b}</Project>
       <Name>XFShapeViewSample</Name>

@@ -30,6 +30,13 @@ namespace XFShapeView.iOS
         {
             base.Draw(rect);
 
+            var x = (float)(rect.X + this.Element.Padding.Left);
+            var y = (float)(rect.Y + this.Element.Padding.Top);
+            var width = (float)(rect.Width - this.Element.Padding.HorizontalThickness);
+            var height = (float)(rect.Height - this.Element.Padding.VerticalThickness);
+            var cx = (float)(width / 2f + this.Element.Padding.Left);
+            var cy = (float)(height / 2f + this.Element.Padding.Top);
+
             var context = UIGraphics.GetCurrentContext();
 
             var fillColor = base.Element.Color.ToUIColor();
@@ -46,6 +53,11 @@ namespace XFShapeView.iOS
 
                 stroke = true;
                 this._strokeWidth = this.Element.BorderWidth;
+
+                x += this._strokeWidth / 2f;
+                y += this._strokeWidth / 2f;
+                width -= this._strokeWidth;
+                height -= this._strokeWidth;
             }
 
             if (this.Element.Color.A > 0)
@@ -57,30 +69,28 @@ namespace XFShapeView.iOS
             if (!fill && !stroke)
                 return;
 
-            var adjustedRect = this.AdjustForThickness(rect);
-
             switch (this.Element.ShapeType)
             {
                 case ShapeType.Box:
-                    this.DrawBox(context, adjustedRect.X, adjustedRect.Y, adjustedRect.Width, adjustedRect.Height, this.Element.CornerRadius);
+                    this.DrawBox(context, x, y, width, height, this.Element.CornerRadius);
                     break;
                 case ShapeType.Circle:
-                    this.DrawCircle(context, adjustedRect.X + adjustedRect.Width / 2f, adjustedRect.Y + adjustedRect.Height/2f, adjustedRect.Width/2f);
+                    this.DrawCircle(context, cx, cy, Math.Min(height, width) / 2f);
                     break;
                 case ShapeType.Oval:
-                    this.DrawOval(context, adjustedRect.X, adjustedRect.Y, adjustedRect.Width, adjustedRect.Height);
+                    this.DrawOval(context, x, y, width, height);
                     break;
                 case ShapeType.Star:
-                    var outerRadius = Math.Min(adjustedRect.Height, adjustedRect.Width)/2f;
+                    var outerRadius = (Math.Min(height, width) - this._strokeWidth) / 2f;
                     var innerRadius = outerRadius*this.Element.RadiusRatio;
 
-                    this.DrawStar(context, adjustedRect.X + adjustedRect.Width/2f, adjustedRect.Y + adjustedRect.Height/2f, outerRadius, innerRadius, this.Element.CornerRadius, this.Element.NumberOfPoints);
+                    this.DrawStar(context, cx, cy, outerRadius, innerRadius, this.Element.CornerRadius, this.Element.NumberOfPoints);
                     break;
                 case ShapeType.Triangle:
-                    this.DrawTriangle(context, adjustedRect.X, adjustedRect.Y, adjustedRect.Width, adjustedRect.Height);
+                    this.DrawTriangle(context, x + this._strokeWidth / 2, y + this._strokeWidth / 2, width - this._strokeWidth, height - this._strokeWidth);
                     break;
                 case ShapeType.Diamond:
-                    this.DrawDiamond(context, adjustedRect.X, adjustedRect.Y, adjustedRect.Width, adjustedRect.Height);
+                    this.DrawDiamond(context, x + this._strokeWidth / 2, y + this._strokeWidth / 2, width - this._strokeWidth, height - this._strokeWidth);
                     break;
             }
 
@@ -190,15 +200,6 @@ namespace XFShapeView.iOS
         #endregion
 
         #region Size Helper
-
-        protected RectangleF AdjustForThickness(CGRect rect)
-        {
-            var x = rect.X + this.Element.Padding.Left + this._strokeWidth;
-            var y = rect.Y + this.Element.Padding.Top + this._strokeWidth;
-            var width = rect.Width - this.Element.Padding.HorizontalThickness - 3*this._strokeWidth;
-            var height = rect.Height - this.Element.Padding.VerticalThickness - 3*this._strokeWidth;
-            return new RectangleF((float) x, (float) y, (float) width, (float) height);
-        }
 
         #endregion
     }

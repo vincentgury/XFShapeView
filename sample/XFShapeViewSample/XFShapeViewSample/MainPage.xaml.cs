@@ -1,5 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using XFShapeView;
 
 namespace XFShapeViewSample
@@ -29,7 +28,7 @@ namespace XFShapeViewSample
                     HorizontalOptions = LayoutOptions.Center,
                     CornerRadius = 5,
                     BorderColor = Color.Red,
-                    BorderWidth = 1f,
+                    BorderWidth = 2f,
                     Content = new Label
                     {
                         Text = "Touch me!",
@@ -56,30 +55,81 @@ namespace XFShapeViewSample
                 var star = new ShapeView
                 {
                     ShapeType = ShapeType.Star,
-                    HeightRequest = 200,
-                    WidthRequest = 200,
+                    HeightRequest = 100,
+                    WidthRequest = 100,
                     Color = Color.Maroon,
                     HorizontalOptions = LayoutOptions.Center,
-                    BorderColor = Color.Black,
-                    BorderWidth = 5f,
                     NumberOfPoints = 5,
                     RadiusRatio = 0.5f
                 };
 
                 #endregion
-                
+
+                #region Oval
+                var oval = new ShapeView
+                {
+                    ShapeType = ShapeType.Oval,
+                    HeightRequest = 40,
+                    WidthRequest = 75,
+                    Color = Color.Green,
+                    HorizontalOptions = LayoutOptions.Center,
+                };
+                #endregion
+
+                #region Triangle
+                var triangle = new ShapeView
+                {
+                    ShapeType = ShapeType.Triangle,
+                    HeightRequest = 75,
+                    WidthRequest = 75,
+                    Color = Color.Purple,
+                    HorizontalOptions = LayoutOptions.Center,
+                    BorderColor = Color.Black,
+                    BorderWidth = 3f,
+                };
+                #endregion
+
+                #region Circle
+                var circle = new ShapeView
+                {
+                    ShapeType = ShapeType.Circle,
+                    HeightRequest = 75,
+                    WidthRequest = 75,
+                    Color = Color.Transparent,
+                    BorderColor = Color.Teal,
+                    BorderWidth = 6f,
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    VerticalOptions = LayoutOptions.FillAndExpand
+                };
+                #endregion
+
+                #region Diamond
+                var diamond = new ShapeView
+                {
+                    ShapeType = ShapeType.Diamond,
+                    HeightRequest = 120,
+                    WidthRequest = 90,
+                    Color = Color.FromRgb(180,20,20),
+                    HorizontalOptions = LayoutOptions.Center,
+                };
+                #endregion
+
                 layout.Children.Add(box);
                 layout.Children.Add(star);
+                layout.Children.Add(oval);
+                layout.Children.Add(triangle);
+                layout.Children.Add(circle);
+                layout.Children.Add(diamond);
 
                 var container = new ShapeView
                 {
                     ShapeType = ShapeType.Box,
                     Padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20),
                     Content = layout,
-                    Color = Color.FromRgb(254, 254, 226),
+                    Color = Color.FromRgb(254, 254, 240),
                     CornerRadius = 10,
-                    BorderColor = Color.Gray,
-                    BorderWidth = 1f
+                    BorderColor = Color.Red,
+                    BorderWidth = 1f,
                 };
 
                 this.Content = container;

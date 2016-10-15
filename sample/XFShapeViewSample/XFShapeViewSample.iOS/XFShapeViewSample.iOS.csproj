@@ -119,14 +119,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.iOS" />
+    <Reference Include="XFShapeView.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VG.XFShapeView.1.0.1\lib\Xamarin.iOS10\XFShapeView.iOS.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\XFShapeView.iOS\XFShapeView.iOS.csproj">
-      <Project>{d7da3ce1-5580-4bb8-95af-59feb552ac67}</Project>
-      <Name>XFShapeView.iOS</Name>
-      <IsAppExtension>false</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
-    </ProjectReference>
     <ProjectReference Include="..\XFShapeViewSample\XFShapeViewSample.csproj">
       <Project>{0ad2a14f-84d7-4cbf-88ae-86f24e7e0d4b}</Project>
       <Name>XFShapeViewSample</Name>
