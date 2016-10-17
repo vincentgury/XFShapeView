@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using CoreAnimation;
 using CoreGraphics;
 using UIKit;
 using Xamarin.Forms;
@@ -84,13 +86,13 @@ namespace XFShapeView.iOS
                     var outerRadius = (Math.Min(height, width) - this._strokeWidth) / 2f;
                     var innerRadius = outerRadius*this.Element.RadiusRatio;
 
-                    this.DrawStar(context, cx, cy, outerRadius, innerRadius, this.Element.CornerRadius, this.Element.NumberOfPoints);
+                    this.DrawStar(context, cx, cy, outerRadius, innerRadius, this.Element.NumberOfPoints, this.Element.CornerRadius);
                     break;
                 case ShapeType.Triangle:
-                    this.DrawTriangle(context, x + this._strokeWidth / 2, y + this._strokeWidth / 2, width - this._strokeWidth, height - this._strokeWidth);
+                    this.DrawTriangle(context, x + this._strokeWidth / 2, y + this._strokeWidth / 2, width - this._strokeWidth, height - this._strokeWidth, this.Element.CornerRadius);
                     break;
                 case ShapeType.Diamond:
-                    this.DrawDiamond(context, x + this._strokeWidth / 2, y + this._strokeWidth / 2, width - this._strokeWidth, height - this._strokeWidth);
+                    this.DrawDiamond(context, x + this._strokeWidth / 2, y + this._strokeWidth / 2, width - this._strokeWidth, height - this._strokeWidth, this.Element.CornerRadius);
                     break;
             }
 
@@ -130,31 +132,74 @@ namespace XFShapeView.iOS
 
         #region Path Methods
 
-        protected virtual void DrawStar(CGContext context, float x, float y, float outerRadius, float innerRadius, float cornerRadius, int numberOfPoints)
+        protected virtual void DrawStar(CGContext context, float x, float y, float outerRadius, float innerRadius, int numberOfPoints, float cornerRadius)
         {
             if (numberOfPoints <= 0)
                 return;
 
             var baseAngle = Math.PI / numberOfPoints;
             var isOuter = false;
-            var xPath = x;
-            var yPath = innerRadius + y;
 
-            var path = new CGPath();
-            path.MoveToPoint(xPath, yPath);
+            var points = new List<CGPoint>();
 
-            var i = baseAngle;
-            while (i <= Math.PI * 2)
+            var ba = baseAngle;
+            while (ba <= Math.PI * 2)
             {
                 var currentRadius = isOuter ? innerRadius : outerRadius;
                 isOuter = !isOuter;
 
-                xPath = (float)(currentRadius * Math.Sin(i)) + x;
-                yPath = (float)(currentRadius * Math.Cos(i)) + y;
+                var xPath = (float)(currentRadius * Math.Sin(ba)) + x;
+                var yPath = (float)(currentRadius * Math.Cos(ba)) + y;
 
-                path.AddLineToPoint(xPath, yPath);
+                points.Add(new CGPoint(xPath, yPath));
 
-                i += baseAngle;
+                ba += baseAngle;
+            }
+
+            this.DrawPoints(context, points, cornerRadius);
+        }
+
+        protected virtual void DrawDiamond(CGContext context, float x, float y, float width, float height, float cornerRadius)
+        {
+            var centerX = width / 2f + x;
+            var centerY = height / 2f + y;
+
+            var points = new List<CGPoint>
+            {
+                new CGPoint(x, centerY),
+                new CGPoint(centerX, y),
+                new CGPoint(x + width, centerY),
+                new CGPoint(centerX, height + y)
+            };
+
+            this.DrawPoints(context, points, cornerRadius);
+        }
+
+        protected virtual void DrawTriangle(CGContext context, float x, float y, float width, float height, float cornerRadius)
+        {
+            var points = new List<CGPoint>
+            {
+                new CGPoint(x, y + height),
+                new CGPoint(x + width/2, y),
+                new CGPoint(x + width, y + height)
+            };
+
+            this.DrawPoints(context, points, cornerRadius);
+        }
+
+        protected virtual void DrawPoints(CGContext context, List<CGPoint> points, float cornerRadius)
+        {
+            if (points == null || points.Count < 3)
+                return;
+
+            var midPoint = new CGPoint(0.5 * (points[0].X + points[1].X), 0.5 * (points[0].Y + points[1].Y));
+            var path = new CGPath();
+
+            path.MoveToPoint(midPoint);
+
+            for (var i = 0; i < points.Count; ++i)
+            {
+                path.AddArcToPoint(points[(i + 1) % points.Count].X, points[(i + 1) % points.Count].Y, points[(i + 2) % points.Count].X, points[(i + 2) % points.Count].Y, cornerRadius);
             }
 
             path.CloseSubpath();
@@ -162,33 +207,6 @@ namespace XFShapeView.iOS
             this.DrawPath(context, path);
         }
 
-        protected virtual void DrawDiamond(CGContext context, float x, float y, float width, float height)
-        {
-            var path = new CGPath();
-
-            var centerX = width / 2f + x;
-            var centerY = height / 2f + y;
-
-            path.MoveToPoint(centerX, y);
-            path.AddLineToPoint(x+ width, centerY);
-            path.AddLineToPoint(centerX, height + y);
-            path.AddLineToPoint(x, centerY);
-            path.CloseSubpath();
-
-            this.DrawPath(context, path);
-        }
-
-        protected virtual void DrawTriangle(CGContext context, float x, float y, float width, float height)
-        {
-            var path = new CGPath();
-
-            path.MoveToPoint(x, height + y);
-            path.AddLineToPoint(x + width, height + y);
-            path.AddLineToPoint(width / 2f + x, y);
-            path.CloseSubpath();
-
-            this.DrawPath(context, path);
-        }
 
         protected virtual void DrawPath(CGContext context, CGPath path)
         {
@@ -196,10 +214,6 @@ namespace XFShapeView.iOS
         }
 
         #endregion
-
-        #endregion
-
-        #region Size Helper
 
         #endregion
     }

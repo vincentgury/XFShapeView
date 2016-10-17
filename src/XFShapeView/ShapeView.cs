@@ -54,7 +54,7 @@ namespace XFShapeView
         }
 
         /// <summary>
-        /// Gets or sets the ratio between inner radius and outer radius (outer = inner * RadiusRation) - only for Star shape - default value is 0.5
+        /// Gets or sets the ratio between inner radius and outer radius (outer = inner * RadiusRatio) - only for Star shape - default value is 0.5
         /// </summary>
         public float RadiusRatio
         {
@@ -72,7 +72,7 @@ namespace XFShapeView
         }
 
         /// <summary>
-        /// Gets or sets the corner radius - (ignored if &lt;=0) - only for Android - default value is 0
+        /// Gets or sets the corner radius - (ignored if &lt;=0) - default value is 0
         /// </summary>
         public float CornerRadius
         {
