@@ -102,6 +102,9 @@ namespace XFShapeView.Droid
                 case ShapeType.Diamond:
                     this.DrawDiamond(canvas, x+this._strokeWidth/2, y + this._strokeWidth/2, width - this._strokeWidth, height - this._strokeWidth, fillPaint, strokePaint);
                     break;
+                case ShapeType.Heart:
+                    this.DrawHeart(canvas, x, y, width, height, this.Resize(this._shapeView.CornerRadius), fillPaint, strokePaint);
+                    break;
             }
         }
 
@@ -218,6 +221,51 @@ namespace XFShapeView.Droid
             path.Close();
 
             this.DrawPath(canvas, path,fillPaint, strokePaint);
+        }
+
+        protected virtual void DrawHeart(Canvas canvas, float x, float y, float width, float height, float cornerRadius, Paint fillPaint, Paint strokePaint)
+        {
+            var length = Math.Min(height, width);
+
+            var p1 = new PointF(x, y + length);
+            var p2 = new PointF(x + 2f*length/3f, y + length);
+            var p3 = new PointF(x + 2f*length/3f, y + length/3f);
+            var p4 = new PointF(x, y + length/3f);
+            var radius = length/3f;
+
+            var path = new Path();
+            path.MoveTo(p4.X, p4.Y);
+            path.LineTo(p1.X, p1.Y - cornerRadius);
+            path.LineTo(p1.X + cornerRadius, p1.Y);
+
+            path.LineTo(p2.X, p2.Y);
+            path.LineTo(p3.X, p3.Y);
+            path.Close();
+
+            if (cornerRadius > 0)
+                path.AddArc(new RectF(p1.X, (p1.Y + p4.Y)/2f, (p2.X + p1.X)/2f, p2.Y), 90, 90);
+
+            path.AddArc(new RectF(p3.X - radius, p3.Y, p3.X + radius, p2.Y), -90f, 180f);
+            path.AddArc(new RectF(p4.X, p4.Y - radius, p3.X, p4.Y + radius), 180f, 180f);
+
+            var matrix = new Matrix();
+            matrix.SetTranslate(-length/3f, -length*2f/3f);
+            path.Transform(matrix);
+
+            matrix.Reset();
+
+            matrix.SetRotate(-45f);
+            path.Transform(matrix);
+
+            matrix.Reset();
+            matrix.SetScale(0.85f, 0.85f);
+            path.Transform(matrix);
+
+            matrix.Reset();
+            matrix.SetTranslate(width/2f, 1.1f*height/2f);
+            path.Transform(matrix);
+
+            this.DrawPath(canvas, path, fillPaint, strokePaint);
         }
 
         protected virtual void DrawPath(Canvas canvas, Path path, Paint fillPaint, Paint strokePaint)

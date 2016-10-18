@@ -114,12 +114,25 @@ namespace XFShapeViewSample
                 };
                 #endregion
 
+                #region Heart
+                var heart = new ShapeView
+                {
+                    ShapeType = ShapeType.Heart,
+                    HeightRequest = 50,
+                    WidthRequest = 100,
+                    Color = Color.Red,
+                    HorizontalOptions = LayoutOptions.Center,
+                    CornerRadius = 0
+                };
+                #endregion
+                
                 layout.Children.Add(box);
                 layout.Children.Add(star);
                 layout.Children.Add(oval);
                 layout.Children.Add(triangle);
                 layout.Children.Add(circle);
                 layout.Children.Add(diamond);
+                layout.Children.Add(heart);
 
                 var container = new ShapeView
                 {

@@ -94,6 +94,9 @@ namespace XFShapeView.iOS
                 case ShapeType.Diamond:
                     this.DrawDiamond(context, x + this._strokeWidth / 2, y + this._strokeWidth / 2, width - this._strokeWidth, height - this._strokeWidth, this.Element.CornerRadius);
                     break;
+                case ShapeType.Heart:
+                    this.DrawHeart(context, x, y, width, height, this.Element.CornerRadius);
+                    break;
             }
 
             if (fill && stroke)
@@ -103,7 +106,6 @@ namespace XFShapeView.iOS
             else if (stroke)
                 context.DrawPath(CGPathDrawingMode.Stroke);
         }
-
 
         #region Drawing Methods
 
@@ -207,6 +209,34 @@ namespace XFShapeView.iOS
             this.DrawPath(context, path);
         }
 
+        protected virtual void DrawHeart(CGContext context, float x, float y, float width, float height, float cornerRadius)
+        {
+            var length = Math.Min(height, width);
+
+            var startPoint = new CGPoint(x, y + 2f*length/3f);
+            var p1 = new CGPoint(x, y + length);
+            var p2 = new CGPoint(x + 2f*length/3f, y + length);
+            var c1 = new CGPoint(x + 2f*length/3f, y + 2f*length/3f);
+            var c2 = new CGPoint(x + length/3f, y + length/3f);
+            var radius = length/3f;
+
+            var path = new CGPath();
+
+            path.MoveToPoint(startPoint.X, startPoint.Y);
+
+            path.AddArcToPoint(p1.X, p1.Y, p2.X, p2.Y, cornerRadius);
+            path.AddLineToPoint(p2.X, p2.Y);
+            path.AddArc(c1.X, c1.Y, radius, (float) -Math.PI/2f, (float) Math.PI/2f, false);
+            path.AddArc(c2.X, c2.Y, radius, 0f, (float) Math.PI, true);
+            path.CloseSubpath();
+
+            var transform = CGAffineTransform.MakeTranslation(-length/3f, -length*2f/3f);
+            transform.Rotate((float) -Math.PI/4f);
+            transform.Scale(0.85f, 0.85f);
+            transform.Translate(width/2f, 1.1f*height/2f);
+            path = path.CopyByTransformingPath(transform);
+            this.DrawPath(context, path);
+        }
 
         protected virtual void DrawPath(CGContext context, CGPath path)
         {

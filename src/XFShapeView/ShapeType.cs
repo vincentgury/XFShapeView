@@ -28,6 +28,10 @@
         /// <summary>
         /// A diamond shape - 4-sides - the same you can find in a card deck - the appearance depends on the height/width ratio
         /// </summary>
-        Diamond
+        Diamond,
+        /// <summary>
+        /// A heart shape - the appearance depends on the minimum value between height &amp; width
+        /// </summary>
+        Heart
     }
 }
