@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>VG.XFShapeView</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 	<title>Shape view for Xamarin.Forms</title>
     <authors>Vincent Gury</authors>
     <owners>Vincent Gury</owners>
@@ -13,7 +13,7 @@
     <description>
 	XFShapeView for Xamarin.Forms provides a custom ContentView allowing you to draw customizable shapes in Android and iOS apps.
 	
-	Support for box, rounded box, circle, oval and star shapes. As this library is based on a ContentView, you can easily add any view/layout to any shape.
+	Support for box, rounded box, circle, circle progress, heart, oval, path, triangle and star shapes. As this library is based on a ContentView, you can easily add any view/layout to any shape.
 	
 	Sample available on GitHub (https://github.com/vincentgury/XFShapeView)
 	</description>

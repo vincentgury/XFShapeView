@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Xamarin.Forms;
 
 namespace XFShapeView
 {
@@ -18,6 +20,8 @@ namespace XFShapeView
         public static readonly BindableProperty ProgressBorderWidthProperty = BindableProperty.Create(nameof(ProgressBorderWidth), typeof(float), typeof(ShapeView), 3f);
         public static readonly BindableProperty RadiusRatioProperty = BindableProperty.Create(nameof(RadiusRatio), typeof(float), typeof(ShapeView), 0.5f);
         public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(ShapeView), Color.Default);
+        public static readonly BindableProperty PointsProperty = BindableProperty.Create(nameof(Points), typeof(ObservableCollection<Point>), typeof(ShapeView), null);
+
 #pragma warning restore 1591
 
         /// <summary>
@@ -113,6 +117,19 @@ namespace XFShapeView
         {
             get { return (Color)this.GetValue(ProgressBorderColorProperty); }
             set { this.SetValue(ProgressBorderColorProperty, value); }
+        }
+
+        #endregion
+
+        #region Path
+
+        /// <summary>
+        /// Gets or sets the points describing the path - (ignored if null or empty) - only for Path shape - default value is null
+        /// </summary>
+        public ObservableCollection<Point> Points
+        {
+            get { return (ObservableCollection<Point>)this.GetValue(PointsProperty); }
+            set { this.SetValue(PointsProperty, value); }
         }
 
         #endregion

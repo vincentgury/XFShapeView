@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using CoreGraphics;
 using UIKit;
 using Xamarin.Forms;
@@ -31,6 +32,7 @@ namespace XFShapeView.iOS
                 case nameof(this.Element.NumberOfPoints):
                 case nameof(this.Element.CornerRadius):
                 case nameof(this.Element.Progress):
+                case nameof(this.Element.Points):
                     this.SetNeedsDisplay();
                     break;
             }
@@ -135,6 +137,9 @@ namespace XFShapeView.iOS
                         this.DrawProgressCircle(context, cx, cy, radius, this.Element.Progress, false, true);
                     }
                     break;
+                    case ShapeType.Path:
+                        this.DrawPoints(context, this.Element.Points.Select(p => p.ToCGPoint()).ToList(), this.Element.CornerRadius, fill, stroke, x, y);
+                    break;
             }
         }
 
@@ -209,8 +214,7 @@ namespace XFShapeView.iOS
                 ba += baseAngle;
             }
 
-            this.DrawPoints(context, points, cornerRadius);
-            this.DrawPath(context, fill, stroke);
+            this.DrawPoints(context, points, cornerRadius, fill, stroke);
         }
 
         protected virtual void DrawDiamond(CGContext context, float x, float y, float width, float height, float cornerRadius, bool fill, bool stroke)
@@ -226,8 +230,7 @@ namespace XFShapeView.iOS
                 new CGPoint(centerX, height + y)
             };
 
-            this.DrawPoints(context, points, cornerRadius);
-            this.DrawPath(context, fill, stroke);
+            this.DrawPoints(context, points, cornerRadius, fill, stroke);
         }
 
         protected virtual void DrawTriangle(CGContext context, float x, float y, float width, float height, float cornerRadius, bool fill, bool stroke)
@@ -239,8 +242,7 @@ namespace XFShapeView.iOS
                 new CGPoint(x + width, y + height)
             };
 
-            this.DrawPoints(context, points, cornerRadius);
-            this.DrawPath(context, fill, stroke);
+            this.DrawPoints(context, points, cornerRadius, fill, stroke);
         }
 
         protected virtual void DrawHeart(CGContext context, float x, float y, float width, float height, float cornerRadius, bool fill, bool stroke)
@@ -274,9 +276,9 @@ namespace XFShapeView.iOS
             this.DrawPath(context, fill, stroke);
         }
 
-        protected virtual void DrawPoints(CGContext context, List<CGPoint> points, float cornerRadius)
+        protected virtual void DrawPoints(CGContext context, List<CGPoint> points, float cornerRadius, bool fill, bool stroke, float x = 0f, float y= 0f)
         {
-            if (points == null || points.Count < 3)
+            if (points == null || points.Count == 0)
                 return;
 
             var midPoint = new CGPoint(0.5 * (points[0].X + points[1].X), 0.5 * (points[0].Y + points[1].Y));
@@ -291,7 +293,12 @@ namespace XFShapeView.iOS
 
             path.CloseSubpath();
 
+            var transform = CGAffineTransform.MakeTranslation(x, y);
+            //path = path.CopyByTransformingPath(transform);
+
             context.AddPath(path);
+
+            this.DrawPath(context, fill, stroke);
         }
 
         #endregion

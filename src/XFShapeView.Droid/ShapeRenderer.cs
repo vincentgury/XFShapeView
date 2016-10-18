@@ -36,6 +36,7 @@ namespace XFShapeView.Droid
                 case nameof(this.Element.NumberOfPoints):
                 case nameof(this.Element.CornerRadius):
                 case nameof(this.Element.Progress):
+                case nameof(this.Element.Points):
                     this.Control.Invalidate();
                     break;
             }

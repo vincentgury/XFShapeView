@@ -1,4 +1,6 @@
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Android.Content;
 using Android.Graphics;
 using Android.Views;
@@ -67,6 +69,7 @@ namespace XFShapeView.Droid
                     case ShapeType.Star:
                     case ShapeType.Triangle:
                     case ShapeType.Diamond:
+                    case ShapeType.Path:
                         var cr = this.Resize(this._shapeView.CornerRadius);
 
                         var cornerPathEffect = new CornerPathEffect(cr);
@@ -88,22 +91,22 @@ namespace XFShapeView.Droid
                     this.DrawOval(canvas, x, y, width, height, fillPaint, strokePaint);
                     break;
                 case ShapeType.Star:
-                    var outerRadius = (Math.Min(height, width)-strokeWidth)/2f;
+                    var outerRadius = (Math.Min(height, width) - strokeWidth)/2f;
                     var innerRadius = outerRadius*this._shapeView.RadiusRatio;
 
                     this.DrawStar(canvas, cx, cy, outerRadius, innerRadius, this._shapeView.CornerRadius, this._shapeView.NumberOfPoints, fillPaint, strokePaint);
                     break;
                 case ShapeType.Triangle:
-                    this.DrawTriangle(canvas, x+strokeWidth/2, y+strokeWidth / 2, width-strokeWidth, height - strokeWidth, fillPaint, strokePaint);
+                    this.DrawTriangle(canvas, x + strokeWidth/2, y + strokeWidth/2, width - strokeWidth, height - strokeWidth, fillPaint, strokePaint);
                     break;
                 case ShapeType.Diamond:
-                    this.DrawDiamond(canvas, x+strokeWidth/2, y + strokeWidth/2, width - strokeWidth, height - strokeWidth, fillPaint, strokePaint);
+                    this.DrawDiamond(canvas, x + strokeWidth/2, y + strokeWidth/2, width - strokeWidth, height - strokeWidth, fillPaint, strokePaint);
                     break;
                 case ShapeType.Heart:
                     this.DrawHeart(canvas, x, y, width, height, this.Resize(this._shapeView.CornerRadius), fillPaint, strokePaint);
                     break;
                 case ShapeType.ProgressCircle:
-                    this.DrawCircle(canvas, cx, cy, Math.Min(height, width) / 2f, fillPaint, strokePaint);
+                    this.DrawCircle(canvas, cx, cy, Math.Min(height, width)/2f, fillPaint, strokePaint);
 
                     if (this._shapeView.ProgressBorderWidth > 0 && this._shapeView.ProgressBorderColor.A > 0)
                     {
@@ -123,9 +126,12 @@ namespace XFShapeView.Droid
                             height -= deltaWidth;
                         }
 
-                        this.DrawProgressCircle(canvas, cx, cy, Math.Min(height, width) / 2f, this._shapeView.Progress, progressPaint);
+                        this.DrawProgressCircle(canvas, cx, cy, Math.Min(height, width)/2f, this._shapeView.Progress, progressPaint);
                     }
 
+                    break;
+                case ShapeType.Path:
+                    this.DrawPath(canvas, this._shapeView.Points, x, y, fillPaint, strokePaint);
                     break;
             }
         }
@@ -290,6 +296,32 @@ namespace XFShapeView.Droid
 
             matrix.Reset();
             matrix.SetTranslate(width/2f, 1.1f*height/2f);
+            path.Transform(matrix);
+
+            this.DrawPath(canvas, path, fillPaint, strokePaint);
+        }
+
+        protected virtual void DrawPath(Canvas canvas, ObservableCollection<Xamarin.Forms.Point> points, float x, float y, Paint fillPaint, Paint strokePaint)
+        {
+            if (points == null || points.Count == 0)
+                return;
+
+            var path = new Path();
+
+            var resizedPoints = points.Select(p => new PointF(this.Resize((double) p.X), this.Resize((double) p.Y))).ToList();
+
+            path.MoveTo((float)resizedPoints[0].X, (float)resizedPoints[0].Y);
+
+            for (var i = 1; i < resizedPoints.Count; ++i)
+            {
+                path.LineTo((float)resizedPoints[i].X, (float)resizedPoints[i].Y);
+            }
+
+            path.Close();
+
+            var matrix = new Matrix();
+            matrix.SetTranslate(x, y);
+
             path.Transform(matrix);
 
             this.DrawPath(canvas, path, fillPaint, strokePaint);

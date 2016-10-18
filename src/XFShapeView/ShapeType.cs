@@ -36,6 +36,10 @@
         /// <summary>
         /// A progress circle shape acting like a progress bar with a radius equals to the minimum value between height &amp; width
         /// </summary>
-        ProgressCircle
+        ProgressCircle,
+        /// <summary>
+        /// A custom path shape defined by a list of points
+        /// </summary>
+        Path
     }
 }
