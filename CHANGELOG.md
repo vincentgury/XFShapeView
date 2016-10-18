@@ -1,3 +1,6 @@
+### 1.0.3
+* Small fix in rendering circle progress on iOS
+
 ### 1.0.2
 * XML documentation typo
 * Support corner radius on star, diamond and triangle shapes on iOS

@@ -117,8 +117,8 @@ namespace XFShapeView.iOS
 
                         if (deltaWidth > 0)
                         {
-                            width -= deltaWidth;
-                            height -= deltaWidth;
+                            width -= 2f*deltaWidth;
+                            height -= 2f*deltaWidth;
                         }
 
                         drawProgress = true;
