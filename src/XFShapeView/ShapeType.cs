@@ -32,6 +32,10 @@
         /// <summary>
         /// A heart shape - the appearance depends on the minimum value between height &amp; width
         /// </summary>
-        Heart
+        Heart,
+        /// <summary>
+        /// A progress circle shape acting like a progress bar with a radius equals to the minimum value between height &amp; width
+        /// </summary>
+        ProgressCircle
     }
 }

@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using XFShapeView;
 
 namespace XFShapeViewSample
@@ -19,6 +20,7 @@ namespace XFShapeViewSample
                 };
 
                 #region Box
+
                 var box = new ShapeView
                 {
                     ShapeType = ShapeType.Box,
@@ -44,14 +46,16 @@ namespace XFShapeViewSample
                 var tap = new TapGestureRecognizer
                 {
                     Command = new Command(() => {
-                        this.DisplayAlert("Touched", "This shape responds to touch!", "Ok");
+                                                    this.DisplayAlert("Touched", "This shape responds to touch!", "Ok");
                     })
                 };
 
                 box.GestureRecognizers.Add(tap);
+
                 #endregion
 
                 #region Star
+
                 var star = new ShapeView
                 {
                     ShapeType = ShapeType.Star,
@@ -60,12 +64,14 @@ namespace XFShapeViewSample
                     Color = Color.Maroon,
                     HorizontalOptions = LayoutOptions.Center,
                     NumberOfPoints = 5,
-                    RadiusRatio = 0.5f
+                    RadiusRatio = 0.5f,
+                    CornerRadius = 10f
                 };
 
                 #endregion
 
                 #region Oval
+
                 var oval = new ShapeView
                 {
                     ShapeType = ShapeType.Oval,
@@ -74,9 +80,11 @@ namespace XFShapeViewSample
                     Color = Color.Green,
                     HorizontalOptions = LayoutOptions.Center,
                 };
+
                 #endregion
 
                 #region Triangle
+
                 var triangle = new ShapeView
                 {
                     ShapeType = ShapeType.Triangle,
@@ -87,9 +95,11 @@ namespace XFShapeViewSample
                     BorderColor = Color.Black,
                     BorderWidth = 3f,
                 };
+
                 #endregion
 
                 #region Circle
+
                 var circle = new ShapeView
                 {
                     ShapeType = ShapeType.Circle,
@@ -101,20 +111,24 @@ namespace XFShapeViewSample
                     HorizontalOptions = LayoutOptions.FillAndExpand,
                     VerticalOptions = LayoutOptions.FillAndExpand
                 };
+
                 #endregion
 
                 #region Diamond
+
                 var diamond = new ShapeView
                 {
                     ShapeType = ShapeType.Diamond,
                     HeightRequest = 120,
                     WidthRequest = 90,
-                    Color = Color.FromRgb(180,20,20),
+                    Color = Color.FromRgb(180, 20, 20),
                     HorizontalOptions = LayoutOptions.Center,
                 };
+
                 #endregion
 
                 #region Heart
+
                 var heart = new ShapeView
                 {
                     ShapeType = ShapeType.Heart,
@@ -124,8 +138,24 @@ namespace XFShapeViewSample
                     HorizontalOptions = LayoutOptions.Center,
                     CornerRadius = 0
                 };
+
                 #endregion
-                
+
+                #region ProgressCircle
+
+                var progressCircle = new ShapeView
+                {
+                    ShapeType = ShapeType.ProgressCircle,
+                    HeightRequest = 75,
+                    WidthRequest = 75,
+                    Color = Color.Pink,
+                    BorderColor = Color.Teal,
+                    BorderWidth = 2f,
+                    ProgressBorderColor = Color.Red
+                };
+
+                #endregion
+
                 layout.Children.Add(box);
                 layout.Children.Add(star);
                 layout.Children.Add(oval);
@@ -133,6 +163,14 @@ namespace XFShapeViewSample
                 layout.Children.Add(circle);
                 layout.Children.Add(diamond);
                 layout.Children.Add(heart);
+                layout.Children.Add(progressCircle);
+
+                Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
+                {
+                    ++progressCircle.Progress;
+
+                    return progressCircle.Progress < 100;
+                });
 
                 var container = new ShapeView
                 {

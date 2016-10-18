@@ -8,13 +8,12 @@ namespace XFShapeView.Droid
 {
     public class Shape : View
     {
-        private float _strokeWidth;
         private readonly float _density;
         private readonly ShapeView _shapeView;
         
         public Shape(float density, Context context, ShapeView shapeView) : base(context)
         {
-            if(shapeView == null)
+            if (shapeView == null)
                 throw new ArgumentNullException(nameof(shapeView));
 
             this._density = density;
@@ -31,24 +30,25 @@ namespace XFShapeView.Droid
             var height = base.Height - this.Resize(this._shapeView.Padding.VerticalThickness);
             var cx = width/2f+this.Resize(this._shapeView.Padding.Left);
             var cy = height/2f + this.Resize(this._shapeView.Padding.Top);
-            this._strokeWidth = 0;
+            var strokeWidth = 0f;
 
             Paint strokePaint = null;
 
             if (this._shapeView.BorderWidth > 0 && this._shapeView.BorderColor.A > 0)
             {
+                strokeWidth = this.Resize(this._shapeView.BorderWidth);
+
                 strokePaint = new Paint(PaintFlags.AntiAlias);
                 strokePaint.SetStyle(Paint.Style.Stroke);
-                strokePaint.StrokeWidth = this.Resize(this._shapeView.BorderWidth);
+                strokePaint.StrokeWidth = strokeWidth;
                 strokePaint.StrokeCap = Paint.Cap.Round;
                 strokePaint.Color = this._shapeView.BorderColor.ToAndroid();
 
-                this._strokeWidth = this.Resize(this._shapeView.BorderWidth);
 
-                x += this._strokeWidth/2f;
-                y += this._strokeWidth/2f;
-                width -= this._strokeWidth;
-                height -= this._strokeWidth;
+                x += strokeWidth/2f;
+                y += strokeWidth/2f;
+                width -= strokeWidth;
+                height -= strokeWidth;
             }
 
             Paint fillPaint = null;
@@ -59,9 +59,6 @@ namespace XFShapeView.Droid
                 fillPaint.SetStyle(Paint.Style.Fill);
                 fillPaint.Color = this._shapeView.Color.ToAndroid();
             }
-
-            if (strokePaint == null && fillPaint == null)
-                return;
 
             if (this._shapeView.CornerRadius > 0)
             {
@@ -91,19 +88,44 @@ namespace XFShapeView.Droid
                     this.DrawOval(canvas, x, y, width, height, fillPaint, strokePaint);
                     break;
                 case ShapeType.Star:
-                    var outerRadius = (Math.Min(height, width)-this._strokeWidth)/2f;
+                    var outerRadius = (Math.Min(height, width)-strokeWidth)/2f;
                     var innerRadius = outerRadius*this._shapeView.RadiusRatio;
 
                     this.DrawStar(canvas, cx, cy, outerRadius, innerRadius, this._shapeView.CornerRadius, this._shapeView.NumberOfPoints, fillPaint, strokePaint);
                     break;
                 case ShapeType.Triangle:
-                    this.DrawTriangle(canvas, x+this._strokeWidth/2, y+this._strokeWidth / 2, width-this._strokeWidth, height - this._strokeWidth, fillPaint, strokePaint);
+                    this.DrawTriangle(canvas, x+strokeWidth/2, y+strokeWidth / 2, width-strokeWidth, height - strokeWidth, fillPaint, strokePaint);
                     break;
                 case ShapeType.Diamond:
-                    this.DrawDiamond(canvas, x+this._strokeWidth/2, y + this._strokeWidth/2, width - this._strokeWidth, height - this._strokeWidth, fillPaint, strokePaint);
+                    this.DrawDiamond(canvas, x+strokeWidth/2, y + strokeWidth/2, width - strokeWidth, height - strokeWidth, fillPaint, strokePaint);
                     break;
                 case ShapeType.Heart:
                     this.DrawHeart(canvas, x, y, width, height, this.Resize(this._shapeView.CornerRadius), fillPaint, strokePaint);
+                    break;
+                case ShapeType.ProgressCircle:
+                    this.DrawCircle(canvas, cx, cy, Math.Min(height, width) / 2f, fillPaint, strokePaint);
+
+                    if (this._shapeView.ProgressBorderWidth > 0 && this._shapeView.ProgressBorderColor.A > 0)
+                    {
+                        var progressStrokeWidth = this.Resize(this._shapeView.ProgressBorderWidth);
+
+                        var progressPaint = new Paint(PaintFlags.AntiAlias);
+                        progressPaint.SetStyle(Paint.Style.Stroke);
+                        progressPaint.StrokeWidth = progressStrokeWidth;
+                        progressPaint.StrokeCap = Paint.Cap.Round;
+                        progressPaint.Color = this._shapeView.ProgressBorderColor.ToAndroid();
+
+                        var deltaWidth = progressStrokeWidth - strokeWidth;
+
+                        if (deltaWidth > 0)
+                        {
+                            width -= deltaWidth;
+                            height -= deltaWidth;
+                        }
+
+                        this.DrawProgressCircle(canvas, cx, cy, Math.Min(height, width) / 2f, this._shapeView.Progress, progressPaint);
+                    }
+
                     break;
             }
         }
@@ -154,10 +176,16 @@ namespace XFShapeView.Droid
                 canvas.DrawOval(rect, strokePaint);
         }
 
+        protected virtual void DrawProgressCircle(Canvas canvas, float cx, float cy, float radius, float progress, Paint progressPaint)
+        {
+            if (progressPaint != null)
+                canvas.DrawArc(new RectF(cx - radius, cy - radius, cx + radius, cy + radius), -90, 360f*(progress/100f), false, progressPaint);
+        }
+
         #endregion
 
         #region Path Methods
-        
+
         protected virtual void DrawStar(Canvas canvas, float cx, float cy, float outerRadius, float innerRadius, float cornerRadius, int numberOfPoints, Paint fillPaint, Paint strokePaint)
         {
             if (numberOfPoints <= 0)
@@ -193,8 +221,7 @@ namespace XFShapeView.Droid
             if (strokePaint != null)
                 canvas.DrawPath(path, strokePaint);
         }
-
-
+        
         protected virtual void DrawDiamond(Canvas canvas, float x, float y, float width, float height, Paint fillPaint, Paint strokePaint)
         {
             var path = new Path();

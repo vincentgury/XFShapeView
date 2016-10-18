@@ -12,8 +12,10 @@ namespace XFShapeView
         public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(ShapeView), Color.Black);
         public static readonly BindableProperty BorderWidthProperty = BindableProperty.Create(nameof(BorderWidth), typeof(float), typeof(ShapeView), 0f);
         public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(ShapeView), 0f);
-
+        public static readonly BindableProperty ProgressProperty = BindableProperty.Create(nameof(Progress), typeof(float), typeof(ShapeView), 0f);
         public static readonly BindableProperty NumberOfPointsProperty = BindableProperty.Create(nameof(NumberOfPoints), typeof(int), typeof(ShapeView), 5);
+        public static readonly BindableProperty ProgressBorderColorProperty = BindableProperty.Create(nameof(ProgressBorderColor), typeof(Color), typeof(ShapeView), Color.Black);
+        public static readonly BindableProperty ProgressBorderWidthProperty = BindableProperty.Create(nameof(ProgressBorderWidth), typeof(float), typeof(ShapeView), 3f);
         public static readonly BindableProperty RadiusRatioProperty = BindableProperty.Create(nameof(RadiusRatio), typeof(float), typeof(ShapeView), 0.5f);
         public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(ShapeView), Color.Default);
 #pragma warning restore 1591
@@ -54,6 +56,17 @@ namespace XFShapeView
         }
 
         /// <summary>
+        /// Gets or sets the corner radius - (ignored if &lt;=0) - default value is 0
+        /// </summary>
+        public float CornerRadius
+        {
+            get { return (float)this.GetValue(CornerRadiusProperty); }
+            set { this.SetValue(CornerRadiusProperty, value); }
+        }
+
+        #region Star
+
+        /// <summary>
         /// Gets or sets the ratio between inner radius and outer radius (outer = inner * RadiusRatio) - only for Star shape - default value is 0.5
         /// </summary>
         public float RadiusRatio
@@ -71,13 +84,37 @@ namespace XFShapeView
             set { this.SetValue(NumberOfPointsProperty, value); }
         }
 
+        #endregion
+
+        #region CircleProgress
+
         /// <summary>
-        /// Gets or sets the corner radius - (ignored if &lt;=0) - default value is 0
+        /// Gets or sets the progress value - range from 0 to 100 - only for CircleProgress shape - default value is 0
         /// </summary>
-        public float CornerRadius
+        public float Progress
         {
-            get { return (float) this.GetValue(CornerRadiusProperty); }
-            set { this.SetValue(CornerRadiusProperty, value); }
+            get { return (float)this.GetValue(ProgressProperty); }
+            set { this.SetValue(ProgressProperty, value); }
         }
+
+        /// <summary>
+        /// Gets or sets the progress border width - only for CircleProgress shape - default value is 3
+        /// </summary>
+        public float ProgressBorderWidth
+        {
+            get { return (float)this.GetValue(ProgressBorderWidthProperty); }
+            set { this.SetValue(ProgressBorderWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the progress border color (ignored if fully transparent or ProgressBorderWidth &lt;= 0) - default value is Color.Black 
+        /// </summary>
+        public Color ProgressBorderColor
+        {
+            get { return (Color)this.GetValue(ProgressBorderColorProperty); }
+            set { this.SetValue(ProgressBorderColorProperty, value); }
+        }
+
+        #endregion
     }
 }
