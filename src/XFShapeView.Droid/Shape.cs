@@ -115,7 +115,6 @@ namespace XFShapeView.Droid
                         var progressPaint = new Paint(PaintFlags.AntiAlias);
                         progressPaint.SetStyle(Paint.Style.Stroke);
                         progressPaint.StrokeWidth = progressStrokeWidth;
-                        progressPaint.StrokeCap = Paint.Cap.Round;
                         progressPaint.Color = this._shapeView.ProgressBorderColor.ToAndroid();
 
                         var deltaWidth = progressStrokeWidth - strokeWidth;

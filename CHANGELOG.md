@@ -1,3 +1,6 @@
+### 1.0.4
+* Fix "ProgressCircle rounded ProgressBorder in Android" - Issue #1
+
 ### 1.0.3
 * Small fix in rendering circle progress on iOS
 
