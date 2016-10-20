@@ -10,7 +10,26 @@ Create shapes content views from shared code for your mobile apps!
 * Add your first ShapeView to your layout, set its properties and see the result.
 * Follow this quick guide for deeper understanding.
 
-**Platform Support**
+### iOS Extra setup
+
+Add Renderers.Init(); to the AppDelegate like so:
+
+```csharp
+using XFShapeView.iOS;
+[...]
+public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+{
+    global::Xamarin.Forms.Forms.Init();
+
+    Renderers.Init();
+
+    LoadApplication(new App());
+
+    return base.FinishedLaunching(app, options);
+}
+```
+
+### Platform Support
 
 |Platform|Supported|Version|
 | ------ | :-------: | :-----: |
@@ -83,13 +102,13 @@ var tap = new TapGestureRecognizer
 box.GestureRecognizers.Add(tap);
 ```
 
-## Screenshots
+### Screenshots
 
 <img alt="Android" src="https://raw.githubusercontent.com/vincentgury/XFShapeView/master/art/screenshots/screenshot-android-1.png" width="300" />
 &nbsp;&nbsp;
 <img alt="iOS" src="https://raw.githubusercontent.com/vincentgury/XFShapeView/master/art/screenshots/screenshot-ios-1.jpg" width="300" />
 
-## Contributing
+### Contributing
 
 Contributions are absolutely welcome. 
 
@@ -101,10 +120,10 @@ Contributions are absolutely welcome.
 
 Thank you for your suggestions!
 
-## Credits
+### Credits
 
 A lot of thanks to ***chrispellett*** and his ***Xamarin-Forms-Shape*** project for being a big inspiration. (https://github.com/chrispellett/Xamarin-Forms-Shape)
 
-## Copyright
+### Copyright
 
 &copy; 2016 Vincent Gury
