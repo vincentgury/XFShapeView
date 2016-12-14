@@ -12,7 +12,7 @@ Create shapes content views from shared code for your mobile apps!
 
 ### iOS Extra setup
 
-Add Renderers.Init(); to the AppDelegate like so:
+Add ShapeRenderer.Init(); to the AppDelegate like so:
 
 ```csharp
 using XFShapeView.iOS;
@@ -21,7 +21,7 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 {
     global::Xamarin.Forms.Forms.Init();
 
-    Renderers.Init();
+    ShapeRenderer.Init();
 
     LoadApplication(new App());
 
