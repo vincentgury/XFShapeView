@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 using Foundation;
@@ -25,7 +26,7 @@ namespace XFShapeViewSample.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
-            Renderers.Init();
+			ShapeRenderer.Init();
 
             LoadApplication(new App());
 
