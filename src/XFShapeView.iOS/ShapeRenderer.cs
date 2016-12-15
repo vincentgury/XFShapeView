@@ -43,6 +43,11 @@ namespace XFShapeView.iOS
             base.ContentMode = UIViewContentMode.Redraw;
         }
 
+		public static void Init()
+		{
+			var r = new ShapeRenderer();
+		}
+
         public override void Draw(CGRect rect)
         {
             base.Draw(rect);
