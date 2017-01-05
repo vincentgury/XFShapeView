@@ -33,10 +33,16 @@
         <!--Xamarin.Android-->
         <file src="..\src\XFShapeView.Droid\bin\Release\XFShapeView.Droid.dll" target="lib\MonoAndroid10\XFShapeView.Droid.dll" />
         <file src="..\src\XFShapeView.Droid\bin\Release\XFShapeView.Droid.pdb" target="lib\MonoAndroid10\XFShapeView.Droid.pdb" />
+        <file src="..\src\XFShapeView\bin\Release\XFShapeView.dll" target="lib\MonoAndroid10\XFShapeView.dll" />
+        <file src="..\src\XFShapeView\bin\Release\XFShapeView.pdb" target="lib\MonoAndroid10\XFShapeView.pdb" />
+		<file src="..\src\XFShapeView\bin\Release\XFShapeView.xml" target="lib\MonoAndroid10\XFShapeView.xml" />
         
         <!--Xamarin.iOS -->
         <file src="..\src\XFShapeView.iOS\bin\Release\XFShapeView.iOS.dll" target="lib\Xamarin.iOS10\XFShapeView.iOS.dll" />
-        <file src="..\src\XFShapeView.iOS\bin\Release\XFShapeView.iOS.pdb" target="lib\Xamarin.iOS10\XFShapeView.iOS.pdb" />
+        <file src="..\src\XFShapeView.iOS\bin\Release\XFShapeView.iOS.pdb" target="lib\Xamarin.iOS10\XFShapeView.iOS.pdb" /> 
+        <file src="..\src\XFShapeView\bin\Release\XFShapeView.dll" target="lib\Xamarin.iOS10\XFShapeView.dll" />
+        <file src="..\src\XFShapeView\bin\Release\XFShapeView.pdb" target="lib\Xamarin.iOS10\XFShapeView.pdb" />
+		<file src="..\src\XFShapeView\bin\Release\XFShapeView.xml" target="lib\Xamarin.iOS10\XFShapeView.xml" />
     </files>
 
 </package>
