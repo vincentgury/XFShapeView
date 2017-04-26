@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>VG.XFShapeView</id>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 	<title>Shape view for Xamarin.Forms</title>
     <authors>Vincent Gury</authors>
     <owners>Vincent Gury</owners>
@@ -19,7 +19,7 @@
 	</description>
 	<summary>Cross platform shape view for Xamarin.Forms (iOS &amp; Android)</summary>
     <releaseNotes>See Changelog: https://github.com/vincentgury/XFShapeView/blob/master/CHANGELOG.md</releaseNotes>
-    <copyright>Copyright 2016</copyright>
+    <copyright>Copyright 2017</copyright>
     <tags>xamarin forms xamarinforms xamarin.forms.shapeview shape ios android</tags>
     <dependencies>
     </dependencies>
