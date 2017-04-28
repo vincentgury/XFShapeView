@@ -1,3 +1,6 @@
+### 1.0.5
+* Fix linking problem on iOS
+
 ### 1.0.4
 * Fix "ProgressCircle rounded ProgressBorder in Android" - Issue #1
 
