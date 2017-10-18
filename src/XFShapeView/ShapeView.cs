@@ -14,6 +14,7 @@ namespace XFShapeView
         public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(ShapeView), Color.Black);
         public static readonly BindableProperty BorderWidthProperty = BindableProperty.Create(nameof(BorderWidth), typeof(float), typeof(ShapeView), 0f);
         public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(ShapeView), 0f);
+        public static readonly BindableProperty RadiusPositionProperty = BindableProperty.Create(nameof(RadiusPosition), typeof(RadiusPosition), typeof(ShapeView), RadiusPosition.All);
         public static readonly BindableProperty ProgressProperty = BindableProperty.Create(nameof(Progress), typeof(float), typeof(ShapeView), 0f);
         public static readonly BindableProperty NumberOfPointsProperty = BindableProperty.Create(nameof(NumberOfPoints), typeof(int), typeof(ShapeView), 5);
         public static readonly BindableProperty ProgressBorderColorProperty = BindableProperty.Create(nameof(ProgressBorderColor), typeof(Color), typeof(ShapeView), Color.Black);
@@ -66,6 +67,15 @@ namespace XFShapeView
         {
             get { return (float)this.GetValue(CornerRadiusProperty); }
             set { this.SetValue(CornerRadiusProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the radius position - default value is RadiusPosition.All
+        /// </summary>
+        public RadiusPosition RadiusPosition
+        {
+            get { return (RadiusPosition)this.GetValue(RadiusPositionProperty); }
+            set { this.SetValue(RadiusPositionProperty, value); }
         }
 
         #region Star

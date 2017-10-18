@@ -82,7 +82,7 @@ namespace XFShapeView.Droid
             switch (this._shapeView.ShapeType)
             {
                 case ShapeType.Box:
-                    this.DrawBox(canvas, x, y, width, height, this._shapeView.CornerRadius, fillPaint, strokePaint);
+                    this.DrawBox(canvas, x, y, width, height, this._shapeView.CornerRadius, this._shapeView.RadiusPosition, fillPaint, strokePaint);
                     break;
                 case ShapeType.Circle:
                     this.DrawCircle(canvas, cx, cy, Math.Min(height, width)/2f, fillPaint, strokePaint);
@@ -139,17 +139,28 @@ namespace XFShapeView.Droid
 
         #region Basic shapes
 
-        protected virtual void DrawBox(Canvas canvas, float left, float top, float width, float height, float cornerRadius, Paint fillPaint, Paint strokePaint)
+        protected virtual void DrawBox(Canvas canvas, float left, float top, float width, float height, float cornerRadius, RadiusPosition radiusPosition, Paint fillPaint, Paint strokePaint)
         {
             var rect = new RectF(left, top, left + width, top + height);
-            if (cornerRadius > 0)
+
+            if (cornerRadius > 0 && radiusPosition != RadiusPosition.None)
             {
                 var cr = this.Resize(cornerRadius);
-                if (fillPaint != null)
-                    canvas.DrawRoundRect(rect, cr, cr, fillPaint);
 
-                if (strokePaint != null)
-                    canvas.DrawRoundRect(rect, cr, cr, strokePaint);
+                if (radiusPosition == RadiusPosition.All)
+                {
+                    if (fillPaint != null)
+                        canvas.DrawRoundRect(rect, cr, cr, fillPaint);
+
+                    if (strokePaint != null)
+                        canvas.DrawRoundRect(rect, cr, cr, strokePaint);
+                }
+                else
+                {
+                    var box = new Box(left, top, width, height, cr, radiusPosition);
+                    var path = box.GetBoxPath();
+                    this.DrawPath(canvas, path, fillPaint, strokePaint);
+                }
             }
             else
             {
