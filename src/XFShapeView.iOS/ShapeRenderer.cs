@@ -31,6 +31,7 @@ namespace XFShapeView.iOS
                 case nameof(this.Element.RadiusRatio):
                 case nameof(this.Element.NumberOfPoints):
                 case nameof(this.Element.CornerRadius):
+                case nameof(this.Element.RadiusPosition):
                 case nameof(this.Element.Progress):
                 case nameof(this.Element.Points):
                     this.SetNeedsDisplay();
@@ -91,7 +92,7 @@ namespace XFShapeView.iOS
             switch (this.Element.ShapeType)
             {
                 case ShapeType.Box:
-                    this.DrawBox(context, x, y, width, height, this.Element.CornerRadius, fill, stroke);
+                    this.DrawBox(context, x, y, width, height, this.Element.CornerRadius, this.Element.RadiusPosition, fill, stroke);
                     break;
                 case ShapeType.Circle:
                     this.DrawCircle(context, cx, cy, Math.Min(height, width) / 2f, fill, stroke);
@@ -162,13 +163,27 @@ namespace XFShapeView.iOS
 
         #region Basic shapes
 
-        protected virtual void DrawBox(CGContext context, float x, float y, float width, float height, float cornerRadius, bool fill, bool stroke)
+        protected virtual void DrawBox(CGContext context, float x, float y, float width, float height, float cornerRadius, RadiusPosition radiusPosition, bool fill, bool stroke)
         {
             var rect = new RectangleF(x, y, width, height);
-            if (cornerRadius > 0)
-                context.AddPath(UIBezierPath.FromRoundedRect(rect, cornerRadius).CGPath);
+
+            if (cornerRadius > 0 && radiusPosition != RadiusPosition.None)
+            {
+                if (radiusPosition == RadiusPosition.All)
+                {
+                    context.AddPath(UIBezierPath.FromRoundedRect(rect, cornerRadius).CGPath);
+                }
+                else
+                {
+                    var box = new Box(x, y, width, height, cornerRadius, radiusPosition);
+                    var path = box.GetBoxPath();
+                    context.AddPath(path);
+                }
+            }
             else
+            {
                 context.AddRect(rect);
+            }
 
             this.DrawPath(context, fill, stroke);
         }

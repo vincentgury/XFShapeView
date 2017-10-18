@@ -25,18 +25,18 @@ namespace XFShapeViewSample
             var box = new ShapeView
             {
                 ShapeType = ShapeType.Box,
-                HeightRequest = 75,
-                WidthRequest = 75,
+                HeightRequest = 80,
+                WidthRequest = 80,
                 Color = Color.Navy,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center,
-                CornerRadius = 5,
+                CornerRadius = 10,
                 BorderColor = Color.Red,
                 BorderWidth = 2f,
                 Content = new Label
                 {
                     Text = "Touch me!",
-                    FontSize = Device.GetNamedSize(NamedSize.Micro, typeof (Label)),
+                    FontSize = Device.GetNamedSize(NamedSize.Small, typeof (Label)),
                     TextColor = Color.White,
                     HorizontalOptions = LayoutOptions.Fill,
                     VerticalOptions = LayoutOptions.Fill,
@@ -51,7 +51,7 @@ namespace XFShapeViewSample
             var tap = new TapGestureRecognizer
             {
                 Command = new Command(() => {
-                    this.DisplayAlert("Touched", "This shape responds to touch!", "Ok");
+                    this.Navigation.PushAsync(new BoxPage());
                 })
             };
 
