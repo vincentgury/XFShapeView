@@ -18,7 +18,7 @@ namespace XFShapeView.iOS
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-            
+
             if (this.Element == null)
                 return;
 
@@ -43,7 +43,7 @@ namespace XFShapeView.iOS
             base.ContentMode = UIViewContentMode.Redraw;
         }
 
-		public static void Init()
+		public new static void Init()
 		{
 			var r = new ShapeRenderer();
 		}
