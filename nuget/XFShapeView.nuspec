@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <id>VG.XFShapeView</id>
-    <version>1.0.5</version>
-	<title>Shape view for Xamarin.Forms</title>
-    <authors>Vincent Gury</authors>
+    <id>VG.XFShapeView.NetCore</id>
+    <version>1.1.0</version>
+	<title>Shape view for Xamarin.Forms for .NET Core</title>
+    <authors>Vincent Gury, Alexandru Munteanu</authors>
     <owners>Vincent Gury</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>https://github.com/vincentgury/XFShapeView/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/vincentgury/XFShapeView</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/vincentgury/XFShapeView/master/art/icon.png</iconUrl>
     <description>
-	XFShapeView for Xamarin.Forms provides a custom ContentView allowing you to draw customizable shapes in Android and iOS apps.
+	XFShapeView for Xamarin.Forms for .NET Core provides a custom ContentView allowing you to draw customizable shapes in Android and iOS apps.
 	
 	Support for box, rounded box, circle, circle progress, heart, oval, path, triangle and star shapes. As this library is based on a ContentView, you can easily add any view/layout to any shape.
 	
@@ -26,23 +26,23 @@
 	  </metadata>
     <files>
         <!--Core-->
-        <file src="..\src\XFShapeView\bin\Release\XFShapeView.dll" target="lib\portable-net45+wp80+win8+wpa81\XFShapeView.dll" />
-        <file src="..\src\XFShapeView\bin\Release\XFShapeView.pdb" target="lib\portable-net45+wp80+win8+wpa81\XFShapeView.pdb" />
-		<file src="..\src\XFShapeView\bin\Release\XFShapeView.xml" target="lib\portable-net45+wp80+win8+wpa81\XFShapeView.xml" />
+        <file src="..\src\XFShapeView\bin\Release\netstandard1.3\XFShapeView.dll" target="lib\netstandard1.3\XFShapeView.dll" />
+        <file src="..\src\XFShapeView\bin\Release\netstandard1.3\XFShapeView.pdb" target="lib\netstandard1.3\XFShapeView.pdb" />
+		<file src="..\src\XFShapeView\bin\Release\netstandard1.3\XFShapeView.xml" target="lib\netstandard1.3\XFShapeView.xml" />
 		
         <!--Xamarin.Android-->
         <file src="..\src\XFShapeView.Droid\bin\Release\XFShapeView.Droid.dll" target="lib\MonoAndroid10\XFShapeView.Droid.dll" />
         <file src="..\src\XFShapeView.Droid\bin\Release\XFShapeView.Droid.pdb" target="lib\MonoAndroid10\XFShapeView.Droid.pdb" />
-        <file src="..\src\XFShapeView\bin\Release\XFShapeView.dll" target="lib\MonoAndroid10\XFShapeView.dll" />
-        <file src="..\src\XFShapeView\bin\Release\XFShapeView.pdb" target="lib\MonoAndroid10\XFShapeView.pdb" />
-		<file src="..\src\XFShapeView\bin\Release\XFShapeView.xml" target="lib\MonoAndroid10\XFShapeView.xml" />
+        <file src="..\src\XFShapeView\bin\Release\netstandard1.3\XFShapeView.dll" target="lib\MonoAndroid10\XFShapeView.dll" />
+        <file src="..\src\XFShapeView\bin\Release\netstandard1.3\XFShapeView.pdb" target="lib\MonoAndroid10\XFShapeView.pdb" />
+		<file src="..\src\XFShapeView\bin\Release\netstandard1.3\XFShapeView.xml" target="lib\MonoAndroid10\XFShapeView.xml" />
         
         <!--Xamarin.iOS -->
         <file src="..\src\XFShapeView.iOS\bin\Release\XFShapeView.iOS.dll" target="lib\Xamarin.iOS10\XFShapeView.iOS.dll" />
         <file src="..\src\XFShapeView.iOS\bin\Release\XFShapeView.iOS.pdb" target="lib\Xamarin.iOS10\XFShapeView.iOS.pdb" /> 
-        <file src="..\src\XFShapeView\bin\Release\XFShapeView.dll" target="lib\Xamarin.iOS10\XFShapeView.dll" />
-        <file src="..\src\XFShapeView\bin\Release\XFShapeView.pdb" target="lib\Xamarin.iOS10\XFShapeView.pdb" />
-		<file src="..\src\XFShapeView\bin\Release\XFShapeView.xml" target="lib\Xamarin.iOS10\XFShapeView.xml" />
+        <file src="..\src\XFShapeView\bin\Release\netstandard1.3\XFShapeView.dll" target="lib\Xamarin.iOS10\XFShapeView.dll" />
+        <file src="..\src\XFShapeView\bin\Release\netstandard1.3\XFShapeView.pdb" target="lib\Xamarin.iOS10\XFShapeView.pdb" />
+		<file src="..\src\XFShapeView\bin\Release\netstandard1.3\XFShapeView.xml" target="lib\Xamarin.iOS10\XFShapeView.xml" />
     </files>
 
 </package>
